@@ -1,5 +1,6 @@
-CREATE TABLE IF NOT EXISTS `movies` (
-  `id` int(11) NOT NULL,
+
+CREATE TABLE `movies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `imdbId` varchar(40) NOT NULL,
   `title` varchar(120) NOT NULL,
   `year` int(4) NOT NULL,
@@ -10,5 +11,6 @@ CREATE TABLE IF NOT EXISTS `movies` (
   `runtime` varchar(20) NOT NULL,
   `country` varchar(60) NOT NULL,
   `genre` varchar(60) NOT NULL,
-  `plot` text NOT NULL
+  `plot` text NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

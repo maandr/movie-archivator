@@ -2,10 +2,12 @@
 class Movies extends Controller {
 
   protected $repository;
+  protected $omdbService;
 
   function __construct() {
     parent::__construct();
     $this->repository = new MovieRepository();
+    $this->omdbService = new OmdbService();
     $this->form = new Form();
     $this->form->createField(FieldType::String, 'title');
     $this->form->createField(FieldType::Integer, 'year');
@@ -24,10 +26,22 @@ class Movies extends Controller {
     $this->render('admin/login.tpl');
   }
 
+  public function load($imdbId) {
+    echo "<pre>";
+    var_dump($this->omdbService->load($imdbId));
+    echo "</pre>";
+  }
+
+  public function search($search) {
+    echo "<pre>";
+    var_dump($this->omdbService->search($search));
+    echo "</pre>";
+  }
+
   public function get($id = null) {
-    return ($id == null) ?
+    var_dump( ($id == null) ?
       $this->repository->getAll() :
-      $this->repository->get($id);
+      $this->repository->get($id) );
   }
 
   public function post($data) {
