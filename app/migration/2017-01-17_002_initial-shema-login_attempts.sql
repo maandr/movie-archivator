@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS `login_attempts` (
+  `id` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
