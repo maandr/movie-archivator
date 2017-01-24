@@ -1,0 +1,41 @@
+/* Structure */
+#notifications {
+  margin: 20px 0;
+}
+
+/* Notifications */
+.error, .warning, .info {
+  padding: 10px;
+  padding-left: 41px;
+  border-radius: 5px;
+}
+.info {
+  background-image: url('../icons/info.png');
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-size: 20px;
+
+  color: #245269;
+  background-color: #d9edf7;
+  border: 1px solid #bce8f1;
+}
+.error {
+  background-image: url('../icons/error.png');
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-size: 20px;
+
+  color: #603939;
+  background-color: #f0d8d8;
+  border: 1px solid #e9c6c6;
+}
+.warning {
+  background-image: url('../icons/warning.png');
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-size: 20px;
+
+  color: #512d0d;
+  background-color: #f7f6d9;
+  border: 1px solid #f1e6bc;
+}

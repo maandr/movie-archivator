@@ -45,6 +45,8 @@ class RequestRouter
 
 	private function proccessRequest($Request)
 	{
+		var_dump($Request);
+
 		$controllerName = $Request->controller;
 		$methodName = $Request->method;
 		$methodName = str_replace("-", "_", $methodName);
@@ -62,7 +64,7 @@ class RequestRouter
 			throw new ControllerDoesNotExistException();
 		}
 
-		if(method_exists($indexController, $controllerName))
+		if(method_exists($indexController, $controllerName) || method_exsits($indexController, str_replace("-", "_", $controllerName)))
 		{
 			$this->invoke($indexController, $controllerName, null);
 			return;

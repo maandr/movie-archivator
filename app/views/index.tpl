@@ -14,9 +14,6 @@
     <base href="{$BaseUrl}">
   </head>
 <body>
-  <!-- Navigation -->
-  <nav>Navigation</nav>
-  <!-- End Navigation -->
 
   <div id="content_wrapper">
 

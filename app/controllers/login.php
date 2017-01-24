@@ -2,25 +2,17 @@
 class Login extends Controller
 {
 	private $Model;
-	
-    function __construct()
-    {
+
+    function __construct() {
         parent::__construct();
-        
         $this->Model = new LoginModel();
     }
-    
-    public function install()
-    {
-    	echo $this->Model->install();
-    }
-    
-    function index()
-    {
+
+    function index() {
         $this->assign('username', '');
         $this->render('admin/login.tpl');
     }
-    
+
     function send()
     {
         if(!isset($_POST['submit']))
@@ -37,7 +29,7 @@ class Login extends Controller
 
         $form->parse($_POST);
         $data = $form->toArray();
-        
+
         if(!$form->isValid())
         {
         	$this->handleFormErrors($form);
@@ -45,7 +37,7 @@ class Login extends Controller
         	$this->render('admin/login.tpl');
         	return;
         }
-              	
+
         $result = $this->Model->login($data);
 
         switch($result)
@@ -61,31 +53,31 @@ class Login extends Controller
 				break;
 		}
     }
-    
+
     private function accountLocked()
     {
     	$this->assign('username', $_POST['username']);
-    	
+
     	$this->error('Security Locked.');
     	$this->render('admin/login.tpl');
     }
-    
+
     private function loginFailed()
     {
     	$this->assign('username', $_POST['username']);
-    	
+
     	print_r($_POST['username']);
-    	
+
     	$this->error('Username und Password stimmen nicht überein.');
     	$this->render('admin/login.tpl');
     }
-    
+
     private function loginSucceded($user)
     {
     	$_SESSION['loggedIn'] = true;
     	$_SESSION['userId'] = $user['id'];
     	$_SESSION['role'] = $user['role'];
-    	
+
     	Location::redirectTo('admin/dashboard');
     	exit();
     }

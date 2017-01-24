@@ -16,7 +16,7 @@ abstract class Repository implements IRepository {
 	 * @param data Data to add.
 	 */
 	public function create($data) {
-		$this->Database->insert($this->tableName, data);
+		$this->Database->insert($this->tableName, $data);
 	}
 
 	/*

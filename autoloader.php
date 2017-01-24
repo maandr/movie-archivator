@@ -11,6 +11,7 @@ function autoloader($className) {
   $Autoloader->observe('app/core/mvc/');
   $Autoloader->observe('app/core/util/');
   $Autoloader->observe('app/models/');
+  $Autoloader->observe('app/models/access/');
   $Autoloader->observe('app/models/user/');
   $Autoloader->observe('app/models/movies/');
   $Autoloader->observe('libs/');
