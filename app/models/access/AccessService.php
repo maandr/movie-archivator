@@ -3,12 +3,14 @@ class AccessService {
 
   protected $UserRepository;
   protected $EncryptService;
+  protected $MailService;
   protected $Database;
 
   /* constructor */
   function __construct() {
     $this->UserRepository = new UserRepository();
     $this->EncryptService = new EncryptService();
+    $this->MailService = new MailService();
     $this->Database = Database::getInstance();
   }
 
@@ -46,6 +48,27 @@ class AccessService {
       }
 
       return $user;
+  }
+
+  public function requestPasswordReset($email) {
+
+    $user = $this->UserRepository->getUserByEmail($email);
+    $token = md5(uniqid($user->password, true));
+    $setPasswordLink = Location::baseUrl().'set-password&token='.$token;
+
+    $this->createPasswordRequest($user, $token);
+    $this->MailService->sendMail($email, 'Reset password instructions', $setPasswordLink);
+  }
+
+  public function setNewPassword($password, $token) {
+
+    $userId = $this->getUserIdForToken($token);
+    $user = $this->UserRepository->get($userId);
+
+    $user->password = $this->EncryptService->createSHA256($password); // ToDo: updated password does not work.
+
+    $this->UserRepository->update($user->id, (array)$user);
+    $this->reedemeToken($token);
   }
 
   /*
@@ -86,6 +109,17 @@ class AccessService {
     return $results[0]->count;
   }
 
+  public function getUserIdForToken($token) {
+    $results = $this->Database
+      ->select("SELECT userId FROM password_requests WHERE token = :token AND redeemed = 0",
+      ['token' => $token]);
+    return $results[0]->userId;
+  }
+
+  public function reedemeToken($token) {
+    $this->Database->query("UPDATE password_requests SET redeemed = 1 WHERE token = '".$token."'");
+  }
+
   /*
    * Persists a login attempt for the passed user to the database.
    *
@@ -93,6 +127,13 @@ class AccessService {
    */
   public function createLoginAttempt($user) {
     $this->Database->insert('login_attempts', ['id' => $user->id]);
+  }
+
+  public function createPasswordRequest($user, $token) {
+    $this->Database->insert('password_requests', [
+      'userId' => $user->id,
+      'token' => $token
+    ]);
   }
 }
 

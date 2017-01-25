@@ -39,9 +39,11 @@ class Movies extends Controller {
   }
 
   public function get($id = null) {
-    var_dump( ($id == null) ?
+    echo "<pre>";
+    print_r( ($id == null) ?
       $this->repository->getAll() :
       $this->repository->get($id) );
+    echo "</pre>";
   }
 
   public function post($data) {

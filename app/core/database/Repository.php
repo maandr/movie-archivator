@@ -56,7 +56,7 @@ abstract class Repository implements IRepository {
 	 * @return object Anonymous object representing the data record.
 	 */
 	public function get($id) {
-		return $this->Database->select("SELECT * FROM $this->tableName WHERE id = :id", array('id' => $id));
+		return $this->Database->select("SELECT * FROM $this->tableName WHERE id = :id", array('id' => $id))[0];
 	}
 
 	/*

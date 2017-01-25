@@ -17,6 +17,18 @@ class UserRepository extends Repository {
 
     return $results[0];
   }
+
+  public function getUserByEmail($email) {
+    $results = $this->Database
+      ->select("SELECT * FROM users WHERE email = :email",
+        ['email' => $email]);
+
+    if(count($results) <= 0) {
+      throw new UserNotFoundException();
+    }
+
+    return $results[0];
+  }
 }
 
 class UserNotFoundException extends Exception {}
