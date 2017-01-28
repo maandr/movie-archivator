@@ -14,7 +14,7 @@ define('LOCK_AFTER_LOGIN_ATTEMPTS', $env['security']['max_allowed_login_attempts
 define('SESSION_SECRET', $env['security']['session_secret']);
 define('VISITOR', 'visitor');
 define('USER', 'user');
-define('ADMINISTATOR', 'admin');
+define('ADMIN', 'admin');
 
 /* mysql */
 define('DB_TYPE', 'mysql');

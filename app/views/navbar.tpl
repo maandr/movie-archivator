@@ -20,8 +20,14 @@
             <a href="login">Login</a>
           </li>
         {else}
-          <li>
-            <a href="logout">Logout</a>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$User->username} <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="">Your Profile</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="">Settings</a></li>
+                <li><a href="logout">Logout</a></li>
+              </ul>
           </li>
         {/if}
       </ul>

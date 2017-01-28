@@ -42,6 +42,7 @@ abstract class Controller {
   private function initializeView() {
 		$this->assign('ControllerName', $this->controllerName);
 		$this->assign('Role', $this->getSessionRole());
+    $this->assign('User', $this->getSessionUser());
   	$this->assign('BaseUrl', Location::baseUrl());
   	$this->assign('RequestUrl', Location::requestUrl());
   	$this->assign('DebugMode', DEBUG_MODE);
@@ -85,6 +86,23 @@ abstract class Controller {
 		}
 
 		return $_SESSION['role'];
+	}
+
+	/*
+	 * Gets the user of the session of the current request.
+	 *
+	 * @return user User of the session.
+	 */
+	private function getSessionUser() {
+		if(!isset($_SESSION['loggedIn']) || !isset($_SESSION['role'])) {
+			return null;
+		}
+
+		if($_SESSION['loggedIn'] != 1) {
+			return null;
+		}
+
+		return $_SESSION['user'];
 	}
 
 	/*
@@ -165,6 +183,6 @@ abstract class Controller {
   }
 
 	/* Each controller has to provide a index method */
-  public abstract function index();
+  public function index() {}
 }
 ?>

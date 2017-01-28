@@ -35,9 +35,15 @@ class Movies extends Controller {
 
   public function search($search) {
     $this->restrictedTo([USER, ADMIN]);
-    echo "<pre>";
-    var_dump($this->omdbService->search($search));
-    echo "</pre>";
+
+    if(isset($search)) {
+      $movies = $this->omdbService->search($search);
+      // echo "<pre>";
+      // var_dump($movies);
+      // echo "</pre>";
+      $this->assign('Movies', $movies);
+      return $this->render('movies/search-results.tpl');
+    }
   }
 
   public function get($id = null) {
