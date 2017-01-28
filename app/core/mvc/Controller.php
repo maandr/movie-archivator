@@ -28,6 +28,7 @@ abstract class Controller
   	$this->view->assign('BaseUrl', Location::baseUrl());
   	$this->view->assign('RequestUrl', Location::requestUrl());
   	$this->view->assign('DebugMode', DEBUG_MODE);
+		$this->view->assign('projectName', PROJECT_NAME);
   }
 
   protected function verifyAuthorization() {

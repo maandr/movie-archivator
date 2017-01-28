@@ -3,6 +3,7 @@
 $env = parse_ini_file("config/global.conf", TRUE);
 
 /* application */
+define('PROJECT_NAME', $env['application']['project_name']);
 define('PORT', $env['application']['port']);
 define('DEBUG_MODE', $env['application']['debug_mode']);
 define('MAX_UPLOAD_SIZE',  $env['application']['debug_mode']);

@@ -1,41 +1,31 @@
-/* Structure */
-#notifications {
+.notification {
   margin: 20px 0;
-}
-
-/* Notifications */
-.error, .warning, .info {
   padding: 10px;
   padding-left: 41px;
+  border: 1px solid;
   border-radius: 5px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-size: 20px;
 }
-.info {
+.notification .info {
   background-image: url('../icons/info.png');
-  background-repeat: no-repeat;
-  background-position: 10px center;
-  background-size: 20px;
-
+  background-color: #245269;
+  border-color: #bce8f1;
   color: #245269;
-  background-color: #d9edf7;
-  border: 1px solid #bce8f1;
 }
-.error {
+.notification .error {
   background-image: url('../icons/error.png');
-  background-repeat: no-repeat;
-  background-position: 10px center;
-  background-size: 20px;
-
-  color: #603939;
   background-color: #f0d8d8;
-  border: 1px solid #e9c6c6;
+  border-color: #e9c6c6;
+  color: #603939;
 }
-.warning {
+.notification .warning {
   background-image: url('../icons/warning.png');
-  background-repeat: no-repeat;
-  background-position: 10px center;
-  background-size: 20px;
-
-  color: #512d0d;
   background-color: #f7f6d9;
-  border: 1px solid #f1e6bc;
+  border-color: #f1e6bc;
+  color: #512d0d;
+}
+#content {
+  margin-top: 50px;
 }

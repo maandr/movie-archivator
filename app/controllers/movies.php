@@ -39,11 +39,16 @@ class Movies extends Controller {
   }
 
   public function get($id = null) {
-    echo "<pre>";
-    print_r( ($id == null) ?
-      $this->repository->getAll() :
-      $this->repository->get($id) );
-    echo "</pre>";
+
+    if($id == null) {
+      $movies = $this->repository->getAll();
+      $this->assign('Movies', $movies);
+      return $this->render('movies/list.tpl');
+    } else {
+      $movie = $this->repository->get($id);
+      $this->assign('Movie', $movie);
+      return $this->render('movies/details.tpl');
+    }
   }
 
   public function post($data) {
