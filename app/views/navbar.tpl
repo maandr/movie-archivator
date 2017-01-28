@@ -7,17 +7,23 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">{$projectName}</a>
+      <a class="navbar-brand" href="#">{$ProjectName}</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="active"><a href="movies/get">Movies</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="home">Home</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="login">Login</a>
-        </li>
+        {if $Role == 'visitor'}
+          <li>
+            <a href="login">Login</a>
+          </li>
+        {else}
+          <li>
+            <a href="logout">Logout</a>
+          </li>
+        {/if}
       </ul>
     </div>
   </div>

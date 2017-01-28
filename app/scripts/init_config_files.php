@@ -12,6 +12,9 @@ define('TEMPLATE_COMPILE_DIR', $env['application']['tempalte_compile_directory']
 /* security */
 define('LOCK_AFTER_LOGIN_ATTEMPTS', $env['security']['max_allowed_login_attempts']);
 define('SESSION_SECRET', $env['security']['session_secret']);
+define('VISITOR', 'visitor');
+define('USER', 'user');
+define('ADMINISTATOR', 'admin');
 
 /* mysql */
 define('DB_TYPE', 'mysql');

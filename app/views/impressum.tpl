@@ -1,5 +1,5 @@
 {extends file="index.tpl"}
 
 {block name=content}
-impressum
+  <h1>Impressum</h1>
 {/block}

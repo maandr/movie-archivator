@@ -27,18 +27,21 @@ class Movies extends Controller {
   }
 
   public function load($imdbId) {
+    $this->restrictedTo([USER, ADMIN]);
     echo "<pre>";
     var_dump($this->omdbService->load($imdbId));
     echo "</pre>";
   }
 
   public function search($search) {
+    $this->restrictedTo([USER, ADMIN]);
     echo "<pre>";
     var_dump($this->omdbService->search($search));
     echo "</pre>";
   }
 
   public function get($id = null) {
+    $this->restrictedTo([USER, ADMIN]);
 
     if($id == null) {
       $movies = $this->repository->getAll();

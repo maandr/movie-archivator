@@ -1,4 +1,4 @@
-{extends file="admin/index.tpl"}
+{extends file="index.tpl"}
 
 {block name=content}
 <h2>Benutzer</h2>
