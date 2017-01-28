@@ -3,24 +3,23 @@
   padding: 10px;
   padding-left: 41px;
   border: 1px solid;
-  border-radius: 5px;
   background-repeat: no-repeat;
   background-position: 10px center;
   background-size: 20px;
 }
-.notification .info {
+.info {
   background-image: url('../icons/info.png');
   background-color: #245269;
   border-color: #bce8f1;
   color: #245269;
 }
-.notification .error {
+.error {
   background-image: url('../icons/error.png');
   background-color: #f0d8d8;
   border-color: #e9c6c6;
   color: #603939;
 }
-.notification .warning {
+.warning {
   background-image: url('../icons/warning.png');
   background-color: #f7f6d9;
   border-color: #f1e6bc;

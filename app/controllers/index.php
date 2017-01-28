@@ -115,9 +115,7 @@ class Index extends Controller {
     }
 
     if($data['confirm-password'] !== $data['password']) {
-      // ToDo: This message dosen't work yet.
-      $form->setFieldMessage('confirm-password', 'The password you confirmed does not match you password.');
-      $this->handleFormErrors($form);
+      $this->error('The password you confirmed does not match you password.');
       $this->assign($data);
       return $this->render('register.tpl');
     }

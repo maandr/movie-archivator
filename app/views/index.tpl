@@ -16,15 +16,15 @@
 
       <div id="content" class="container">
         {foreach from=$Errors item=Error}
-          <p class="notification-error">{$Error}</p>
+          <p class="notification error">{$Error}</p>
         {/foreach}
 
         {foreach from=$Warnings item=Warning}
-          <p class="notification-warning">{$Warning}</p>
+          <p class="notification warning">{$Warning}</p>
         {/foreach}
 
         {foreach from=$Infos item=Info}
-          <p class="notification-info">{$Info}</p>
+          <p class="notification info">{$Info}</p>
         {/foreach}
 
         {block name=content}{/block}

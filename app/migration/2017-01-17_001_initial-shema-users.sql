@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `lastname` varchar(50) NOT NULL,
   `role` enum('admin', 'user') NOT NULL DEFAULT 'user',
   `register_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

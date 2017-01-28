@@ -47,6 +47,8 @@ class AccessService {
         throw new LoginFailedException();
       }
 
+      $user->last_login = date('Y-m-d H:i:s');
+      $this->UserRepository->update($user->id, $user);
       return $user;
   }
 
