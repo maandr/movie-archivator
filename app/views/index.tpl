@@ -41,5 +41,6 @@
 
     <script src="{$BaseUrl}libs/jquery/dist/jquery.min.js"></script>
     <script src="{$BaseUrl}libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    {block name=javascript}{/block}
   </body>
 </html>

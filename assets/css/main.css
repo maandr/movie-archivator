@@ -25,6 +25,58 @@
   border-color: #f1e6bc;
   color: #512d0d;
 }
+.movie-search {
+  padding: 20px;
+}
+.movie-search-results {
+  display: block;
+  padding: 20px;
+  height: 300px;
+}
+.movie-search-result {
+  min-height: 80px;
+  border-bottom: 1px solid #cecece;
+  padding: 5px;
+  display: block;
+}
+.movie-search-result .poster {
+  display: inline-block;
+  width: 40px;
+  margin-right: 15px;
+}
+.movie-search-result h3 {
+  font-size: 12pt;
+  display: inline-block;
+}
+.movie-details .total-rating {
+  text-align: center;
+  float: right;
+  width: 100px;
+  height: 100px;
+  padding: 20px;
+  font-size: 20pt;
+  color: #0b2e0e;
+  background-color: #36b242;
+}
+.movie-details .total-rating-amount {
+  font-size: 10pt;
+}
+.movie-details .poster {
+  max-width: 300px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  float: left;
+}
+.movie-details .facts td,
+.movie-details .ratings td {
+  padding: 10px;
+}
 #content {
   margin-top: 50px;
+}
+.bold {
+  font-weight: bold;
+}
+.right {
+  text-align: right;
 }

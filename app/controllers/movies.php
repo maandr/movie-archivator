@@ -28,22 +28,34 @@ class Movies extends Controller {
 
   public function load($imdbId) {
     $this->restrictedTo([USER, ADMIN]);
-    echo "<pre>";
-    var_dump($this->omdbService->load($imdbId));
-    echo "</pre>";
+    $movie = null;
+
+    if(!$this->repository->existsMovie($imdbId)) {
+
+      $response = $this->omdbService->load($imdbId);
+      $this->repository->createMovieFromImdb($response);
+      $movie = $this->repository->getMovieByImdbId($imdbId);
+
+      /* download the image */
+      $img = POSTERS_DIR.$movie->id.'.jpg';
+      file_put_contents($img, file_get_contents(str_replace('300', '600', $response->Poster)));
+    } else {
+      $movie = $this->repository->getMovieByImdbId($imdbId);
+    }
+
+    return $this->get($movie->id);
   }
 
-  public function search($search) {
+  public function search() {
     $this->restrictedTo([USER, ADMIN]);
 
-    if(isset($search)) {
-      $movies = $this->omdbService->search($search);
-      // echo "<pre>";
-      // var_dump($movies);
-      // echo "</pre>";
-      $this->assign('Movies', $movies);
-      return $this->render('movies/search-results.tpl');
-    }
+    $search = (isset($_GET['search'])) ? $_GET['search'] : '';
+    $movies = [];
+    $movies = $this->omdbService->search($search);
+
+    $this->assign('search', $search);
+    $this->assign('Movies', $movies);
+    return $this->render('movies/search.tpl');
   }
 
   public function get($id = null) {

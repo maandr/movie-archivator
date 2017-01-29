@@ -45,6 +45,9 @@ abstract class Controller {
     $this->assign('User', $this->getSessionUser());
   	$this->assign('BaseUrl', Location::baseUrl());
   	$this->assign('RequestUrl', Location::requestUrl());
+		$this->assign('AssetsPath', ASSETS_PATH);
+		$this->assign('ImgPath', IMG_PATH);
+		$this->assign('PosterPath', POSTER_PATH);
   	$this->assign('DebugMode', DEBUG_MODE);
 		$this->assign('ProjectName', PROJECT_NAME);
   }

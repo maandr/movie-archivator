@@ -31,4 +31,13 @@ define('PATH_CONTROLLERS_DIR', $env['pathes']['controllers']);
 define('PATH_BACKUP_DIR', $env['pathes']['backup']);
 define('PATH_TPL_INDEX', $env['pathes']['index_template']);
 define('PATH_BACKEND_TPL_INDEX', $env['pathes']['backend_index_template']);
+
+define('ASSETS_PATH', 'assets/');
+define('IMG_PATH', ASSETS_PATH.'img/');
+define('POSTER_PATH', IMG_PATH.'posters/');
+
+/* directories */
+define('ASSETS_DIR', $_SERVER['DOCUMENT_ROOT'].'/'.ROOT_DIR.'assets/');
+define('IMG_DIR', $_SERVER['DOCUMENT_ROOT'].'/'.ROOT_DIR.'assets/img/');
+define('POSTERS_DIR', $_SERVER['DOCUMENT_ROOT'].'/'.ROOT_DIR.'assets/img/posters/');
 ?>

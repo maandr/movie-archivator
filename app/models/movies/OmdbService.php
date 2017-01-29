@@ -19,9 +19,11 @@ class OmdbService {
 
   	$results = array();
 
-  	foreach($response->Search as $result) {
-  		array_push($results, $result);
-  	}
+    if(isset($response->Search) && is_array($response->Search)) {
+      foreach($response->Search as $result) {
+    		array_push($results, $result);
+    	}
+    }
 
   	return $results;
   }
@@ -37,10 +39,6 @@ class OmdbService {
     $response = HTTP::get($requestUri);
 
     return $response;
-
-    //$img = ROOT_DIR.'assets/poster/'.$data['imdbId'].'.jpg';
-    //file_put_contents($img, file_get_contents($data['poster']));
-    //$data['poster'] = $img;
 	}
 }
 ?>
