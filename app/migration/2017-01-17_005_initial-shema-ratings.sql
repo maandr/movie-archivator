@@ -1,6 +1,7 @@
 CREATE TABLE `ratings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
+  `movieId` int(11) NOT NULL,
   `plot` float(3) NOT NULL,
   `dialog` float(3) NOT NULL,
   `cinematography` float(3) NOT NULL,

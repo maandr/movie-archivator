@@ -14,6 +14,7 @@ function autoloader($className) {
   $Autoloader->observe('app/models/access/');
   $Autoloader->observe('app/models/user/');
   $Autoloader->observe('app/models/movies/');
+  $Autoloader->observe('app/models/ratings/');
   $Autoloader->observe('libs/');
   $Autoloader->observe('libs/smarty/');
   $Autoloader->observe('libs/parsedown/');
