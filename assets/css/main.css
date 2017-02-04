@@ -26,17 +26,67 @@
   border-color: #f1e6bc;
   color: #512d0d;
 }
+table.movie-list {
+  width: 100%;
+}
+table.movie-list .poster {
+  height: 85px;
+}
+table.movie-list .rating {
+  background-color: #36b242;
+  color: #fff;
+  font-size: 11pt;
+  padding: 10px;
+  line-height: 30px;
+}
+table.movie-list th,
+table.movie-list td {
+  padding: 10px;
+}
+table.movie-list th {
+  font-weight: bold;
+}
+table.movie-list td {
+  border-bottom: 1px solid #efefef;
+}
+table.movie-list tr:nth-child(odd) {
+  background-color: #fafafa;
+}
 .movie-search {
-  padding: 20px;
+  padding: 0;
+  margin: 0;
+  display: inline;
+  position: relative;
+}
+.movie-search form,
+.movie-search input {
+  padding: 0;
+  margin: 0;
+  padding: 5px;
+}
+.movie-search input {
+  width: 150px;
+  height: 30px;
+  display: inline;
+}
+.movie-search #submit-search {
+  width: 75px;
+  height: 30px;
+  display: inline;
 }
 .movie-search-results {
-  display: block;
-  padding: 20px;
-  height: 300px;
+  position: absolute;
+  visibility: hidden;
+  overflow: auto;
+  max-height: 400px;
+  width: 450px;
+  background-color: #fff;
+  border: 1px solid #cecece;
+  left: 0;
 }
 .movie-search-result {
   min-height: 80px;
-  border-bottom: 1px solid #cecece;
+  border-bottom: 1px solid #fafafa;
   padding: 5px;
   display: block;
 }
@@ -49,6 +99,14 @@
   font-size: 12pt;
   display: inline-block;
 }
+.movie-details h1 {
+  font-size: 18pt;
+  border-bottom: 1px solid #cecece;
+}
+.movie-details h2 {
+  font-size: 14pt;
+  border-bottom: 1px solid #cecece;
+}
 .movie-details .total-rating {
   text-align: center;
   float: right;
@@ -56,7 +114,7 @@
   height: 100px;
   padding: 20px;
   font-size: 20pt;
-  color: #0b2e0e;
+  color: #fff;
   background-color: #36b242;
 }
 .movie-details .total-rating-amount {
@@ -64,8 +122,6 @@
 }
 .movie-details .poster {
   max-width: 300px;
-  margin-right: 20px;
-  margin-bottom: 20px;
   float: left;
 }
 .movie-details .facts td,
@@ -113,11 +169,24 @@ label {
   color: #FFED85;
 }
 #content {
-  margin-top: 50px;
+  margin-top: 75px;
 }
 .bold {
   font-weight: bold;
 }
 .right {
   text-align: right;
+}
+.btn-primary {
+  background: none;
+  background-color: #efefef;
+  border: none;
+  color: #333;
+}
+.form-control {
+  background: none;
+  background-color: #efefef;
+  border: none;
+  border-radius: 3px;
+  color: #333;
 }

@@ -14,6 +14,7 @@ CREATE TABLE `ratings` (
   `rewatch` float(3) NOT NULL,
   `score` float(3) NOT NULL,
   `look` float(3) NOT NULL,
-  `characters` float(3) NOT NULL,
+  `characters` float(6) NOT NULL,
+  `total` float(8) NOT NULL
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

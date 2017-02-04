@@ -1,12 +1,14 @@
 <?php
 class Movies extends Controller {
 
-  protected $repository;
+  protected $MovieRepository;
+  protected $RatingRepository;
   protected $omdbService;
 
   function __construct() {
     parent::__construct();
-    $this->repository = new MovieRepository();
+    $this->MovieRepository = new MovieRepository();
+    $this->RatingRepository = new RatingRepository();
     $this->omdbService = new OmdbService();
     $this->form = new Form();
     $this->form->createField(FieldType::String, 'title');
@@ -30,58 +32,93 @@ class Movies extends Controller {
     $this->restrictedTo([USER, ADMIN]);
     $movie = null;
 
-    if(!$this->repository->existsMovie($imdbId)) {
-
+    if(!$this->MovieRepository->existsMovie($imdbId)) {
       $response = $this->omdbService->load($imdbId);
-      $this->repository->createMovieFromImdb($response);
-      $movie = $this->repository->getMovieByImdbId($imdbId);
+      $this->MovieRepository->create([
+        'imdbId' => $response->imdbID,
+        'title' => $response->Title,
+        'year' => $response->Year,
+        'runtime' => $response->Runtime,
+        'genre' => $response->Genre,
+        'director' => $response->Director,
+        'writer' => $response->Writer,
+        'cast' => $response->Actors,
+        'plot' => $response->Plot,
+        'country' => $response->Country,
+        'awards' => $response->Awards
+      ]);
+      $movie = $this->MovieRepository->getMovieByImdbId($imdbId);
 
       /* download the image */
       $img = POSTERS_DIR.$movie->id.'.jpg';
       file_put_contents($img, file_get_contents(str_replace('300', '600', $response->Poster)));
     } else {
-      $movie = $this->repository->getMovieByImdbId($imdbId);
+      $movie = $this->MovieRepository->getMovieByImdbId($imdbId);
     }
 
     return $this->get($movie->id);
   }
 
-  public function search() {
+  public function search($search = null) {
     $this->restrictedTo([USER, ADMIN]);
 
-    $search = (isset($_GET['search'])) ? $_GET['search'] : '';
-    $movies = [];
-    $movies = $this->omdbService->search($search);
+    if(!isset($search) || empty($search)) {
+      $this->assign('Results', []);
+      return $this->render('movies/search-results.tpl');
+    }
 
-    $this->assign('search', $search);
-    $this->assign('Movies', $movies);
-    return $this->render('movies/search.tpl');
+    $results = [];
+    $results = $this->omdbService->search($search);
+
+    $this->assign('Results', $results);
+    return $this->render('movies/search-results.tpl');
+  }
+
+  public function search_succestion($search = null) {
+    if(!isset($search) || empty($search)) {
+      $this->assign('Results', []);
+      return $this->render('movies/search-suggestion.tpl');
+    }
+
+    $results = [];
+    $results = $this->MovieRepository->search($search);
+    $this->assign('PosterPath', POSTER_PATH);
+    $this->assign('Results', $results);
+    return $this->render('movies/search-suggestion.tpl');
   }
 
   public function get($id = null) {
     $this->restrictedTo([USER, ADMIN]);
 
     if($id == null) {
-      $movies = $this->repository->getAll();
+      $movies = $this->MovieRepository->getAll();
       $this->assign('Movies', $movies);
       return $this->render('movies/list.tpl');
     } else {
-      $movie = $this->repository->get($id);
+      $movie = $this->MovieRepository->get($id);
+      $UserRating = $this->RatingRepository->getUserRatingsOfMovie($_SESSION['userId'], $id);
       $this->assign('Movie', $movie);
+      $this->assign('UserRating', $UserRating);
       return $this->render('movies/details.tpl');
     }
   }
 
+  public function rated_by_user($userId) {
+    $movies = $this->RatingRepository->getMoviesRatedByUser($userId);
+    $this->assign('Movies', $movies);
+    return $this->render('movies/list.tpl');
+  }
+
   public function post($data) {
-    $this->repository->create($data);
+    $this->MovieRepository->create($data);
   }
 
   public function update($id, $data) {
-    $this->repository->update($id, $data);
+    $this->MovieRepository->update($id, $data);
   }
 
   public function delete($id) {
-    $this->repository->delete($id);
+    $this->MovieRepository->delete($id);
   }
 }
 ?>

@@ -1,8 +1,4 @@
-$( document ).ready(function() {
-
-  $('#star0').click(function() {
-    alert("hello");
-  });
+$(document).ready(function() {
 
 });
 
@@ -15,5 +11,17 @@ function rate(userId, movieId, category, rating) {
     "rating": rating,
   };
   console.log(data);
-  $.post("http://localhost/movie-archivator/ratings/rate", data);
+  $.ajax({
+    type: "POST",
+    url: "http://localhost/movie-archivator/ratings/rate",
+    data: data
+  }).done(function(data) {
+    getTotalRating(userId, movieId);
+  });
+}
+
+function getTotalRating(userId, movieId) {
+  var targetUri = "http://localhost/movie-archivator/ratings/total/" + encodeURIComponent(movieId) + "?userId=" + encodeURIComponent(userId);
+  console.log(targetUri);
+  $('#total-rating').load(targetUri);
 }
