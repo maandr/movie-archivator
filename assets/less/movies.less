@@ -6,8 +6,6 @@ table.movie-list {
   }
 
   .rating {
-    background-color: @rating-a-background;
-    color: @rating-a-text;
     font-size: 11pt;
     padding: 10px;
     line-height: 30px;
@@ -93,14 +91,20 @@ table.movie-list {
   }
 
   .total-rating {
-    text-align: center;
     float: right;
+    text-align: center;
     width: 100px;
     height: 100px;
     padding: 20px;
-    font-size:20pt;
-    color: @rating-a-text;
-    background-color: @rating-a-background;
+    border-radius: 3px;
+
+    &-user {
+      font-size: 20pt;
+    }
+
+    &-average {
+      font-size: 10pt;
+    }
 
     &-amount {
       font-size: 10pt;

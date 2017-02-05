@@ -12,8 +12,14 @@ class Ratings extends Controller {
   }
 
   public function total($movieId, $userId = null) {
-    $rating = $this->Repository->getTotalRating($movieId, $userId);
-    $this->assign('Total', $rating);
+
+    $userId = (isset($_GET['userId'])) ? $_GET['userId'] : null;
+
+    $UserRating = $this->Repository->getUserRating($userId, $movieId);
+    $AverageRating = $this->Repository->getAverageRating($movieId);
+
+    $this->assign('UserRating', $UserRating);
+    $this->assign('AverageRating', $AverageRating);
     return $this->render('ratings/total-rating.tpl');
   }
 }

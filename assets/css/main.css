@@ -33,8 +33,6 @@ table.movie-list .poster {
   height: 85px;
 }
 table.movie-list .rating {
-  background-color: #36b242;
-  color: #fff;
   font-size: 11pt;
   padding: 10px;
   line-height: 30px;
@@ -108,14 +106,18 @@ table.movie-list tr:nth-child(odd) {
   border-bottom: 1px solid #cecece;
 }
 .movie-details .total-rating {
-  text-align: center;
   float: right;
+  text-align: center;
   width: 100px;
   height: 100px;
   padding: 20px;
+  border-radius: 3px;
+}
+.movie-details .total-rating-user {
   font-size: 20pt;
-  color: #fff;
-  background-color: #36b242;
+}
+.movie-details .total-rating-average {
+  font-size: 10pt;
 }
 .movie-details .total-rating-amount {
   font-size: 10pt;
@@ -132,6 +134,26 @@ fieldset,
 label {
   margin: 0;
   padding: 0;
+}
+.a-rating {
+  background-color: #36b242;
+  color: #fff;
+}
+.b-rating {
+  background-color: #73b236;
+  color: #fff;
+}
+.c-rating {
+  background-color: #e1d849;
+  color: #fff;
+}
+.d-rating {
+  background-color: #e18949;
+  color: #fff;
+}
+.e-rating {
+  background-color: #e14949;
+  color: #fff;
 }
 /****** Style Star Rating Widget *****/
 .rating {

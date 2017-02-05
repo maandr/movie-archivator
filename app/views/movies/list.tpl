@@ -11,11 +11,15 @@
     </tr>
     {foreach from=$Movies item=Movie}
       <tr>
-        <td><img src="{$PosterPath}{$Movie->movieId}.jpg" class="poster" /></td>
+        <td>
+          <a href="{$BaseUrl}movies/get/{$Movie->movieId}">
+            <img src="{$PosterPath}{$Movie->movieId}.jpg" class="poster" />
+          </a>
+        </td>
         <td><p class="rating">{$Movie->total|string_format:"%.2f"}</p></td>
         <td><a href="{$BaseUrl}movies/get/{$Movie->movieId}">{$Movie->title}</a></td>
-        <td>{$Movie->year}</td>
-        <td>{$Movie->director}</td>
+        <td><a href="{$BaseUrl}movies/year/{$Movie->year}">{$Movie->year}</a></td>
+        <td><a href="{$BaseUrl}movies/director/{$Movie->director}">{$Movie->director}</a></td>
       </tr>
     {/foreach}
   </table>

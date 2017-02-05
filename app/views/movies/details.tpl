@@ -14,9 +14,10 @@
 		<div class="col-md-8">
 			<h1>{$Movie->title}</h1>
 
-			<div id="total-rating" class="total-rating">
-				{$UserRating->total|round:2}
-				<div class="total-rating-amount">x ratings</div>
+			<div id="total-rating" class="total-rating a-rating">
+				<div class="total-rating-user">{$UserRating->total|string_format:"%.2f"}</div>
+				<div class="total-rating-average">{$AverageRating->total|string_format:"%.2f"}</div>
+				<div class="total-rating-amount">{$AverageRating->ratings} ratings</div>
 			</div>
 
 			<table class="facts">
@@ -42,7 +43,7 @@
 				</tr>
 				<tr>
 					<td class="bold right">Director</td>
-					<td>{$Movie->director}</td>
+					<td><a href="{$ControllerName}/director/{$Movie->director}">{$Movie->director}</a></td>
 				</tr>
 				<tr>
 					<td class="bold right">Writer</td>
@@ -64,219 +65,47 @@
 
 		<div class="col-md-6">
 			<table class="ratings">
-				<tr>
-					<td class="bold right">Plot</td>
-					<td>
-						<fieldset class="rating">
-							{assign var="category" value="plot"}
-							{for $i=0 to 10}
-								{assign var="full" value=10 - {$i}}
-								{assign var="half" value={$full} - 0.5}
-								<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
-								<label class="full" for="rating_{$category}_star{$i}"></label>
-								<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if}  />
-								<label class="half" for="rating_{$category}_star{$i}half"></label>
-							{/for}
-						</fieldset>
-					</td>
-				</tr>
-				<tr>
-					<td class="bold right">Message</td>
-					<td>
-						<fieldset class="rating">
-							{assign var="category" value="meaning"}
-							{for $i=0 to 10}
-								{assign var="full" value=10 - {$i}}
-								{assign var="half" value={$full} - 0.5}
-								<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
-								<label class="full" for="rating_{$category}_star{$i}"></label>
-								<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if} />
-								<label class="half" for="rating_{$category}_star{$i}half"></label>
-							{/for}
-						</fieldset>
-					</td>
-				</tr>
-				<tr>
-					<td class="bold right">Characters</td>
-					<td>
-						<fieldset class="rating">
-							{assign var="category" value="characters"}
-							{for $i=0 to 10}
-								{assign var="full" value=10 - {$i}}
-								{assign var="half" value={$full} - 0.5}
-								<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
-								<label class="full" for="rating_{$category}_star{$i}"></label>
-								<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if} />
-								<label class="half" for="rating_{$category}_star{$i}half"></label>
-							{/for}
-						</fieldset>
-					</td>
-				</tr>
-				<tr>
-					<td class="bold right">Dialog</td>
-					<td>
-						<fieldset class="rating">
-							{assign var="category" value="dialog"}
-							{for $i=0 to 10}
-								{assign var="full" value=10 - {$i}}
-								{assign var="half" value={$full} - 0.5}
-								<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
-								<label class="full" for="rating_{$category}_star{$i}"></label>
-								<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if} />
-								<label class="half" for="rating_{$category}_star{$i}half"></label>
-							{/for}
-						</fieldset>
-					</td>
-				</tr>
-				<tr>
-					<td class="bold right">Tention</td>
-					<td>
-						<fieldset class="rating">
-							{assign var="category" value="tention"}
-							{for $i=0 to 10}
-								{assign var="full" value=10 - {$i}}
-								{assign var="half" value={$full} - 0.5}
-								<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
-								<label class="full" for="rating_{$category}_star{$i}"></label>
-								<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if} />
-								<label class="half" for="rating_{$category}_star{$i}half"></label>
-							{/for}
-						</fieldset>
-					</td>
-				</tr>
-				<tr>
-					<td  class="bold right">Fun</td>
-					<td>
-						<fieldset class="rating">
-							{assign var="category" value="fun"}
-							{for $i=0 to 10}
-								{assign var="full" value=10 - {$i}}
-								{assign var="half" value={$full} - 0.5}
-								<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
-								<label class="full" for="rating_{$category}_star{$i}"></label>
-								<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if} />
-								<label class="half" for="rating_{$category}_star{$i}half"></label>
-							{/for}
-						</fieldset>
-					</td>
-				</tr>
-				<tr>
-					<td class="bold right">Rewatch</td>
-					<td>
-						<fieldset class="rating">
-							{assign var="category" value="rewatch"}
-							{for $i=0 to 10}
-								{assign var="full" value=10 - {$i}}
-								{assign var="half" value={$full} - 0.5}
-								<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
-								<label class="full" for="rating_{$category}_star{$i}"></label>
-								<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if} />
-								<label class="half" for="rating_{$category}_star{$i}half"></label>
-							{/for}
-						</fieldset>
-					</td>
-				</tr>
+				{assign var=categories value=['plot', 'meaning', 'characters', 'dialog', 'tention', 'fun', 'rewatch']}
+				{foreach from=$categories item=category}
+					<tr>
+						<td class="bold right">{$category}</td>
+						<td>
+							<fieldset class="rating">
+								{for $i=0 to 10}
+									{assign var="full" value=10 - {$i}}
+									{assign var="half" value={$full} - 0.5}
+									<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
+									<label class="full" for="rating_{$category}_star{$i}" title="{$full}"></label>
+									<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if}  />
+									<label class="half" for="rating_{$category}_star{$i}half" title="{$half}"></label>
+								{/for}
+							</fieldset>
+						</td>
+					</tr>
+				{/foreach}
 			</table>
 		</div>
 
 		<div class="col-md-6">
 			<table class="ratings">
-				<tr>
-					<td class="bold right">Acting</td>
-					<td>
-						<fieldset class="rating">
-							{assign var="category" value="acting"}
-							{for $i=0 to 10}
-								{assign var="full" value=10 - {$i}}
-								{assign var="half" value={$full} - 0.5}
-								<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
-								<label class="full" for="rating_{$category}_star{$i}"></label>
-								<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if} />
-								<label class="half" for="rating_{$category}_star{$i}half"></label>
-							{/for}
-						</fieldset>
-					</td>
-				</tr>
-				<tr>
-					<td class="bold right">Cinematography</td>
-					<td>
-						<fieldset class="rating">
-							{assign var="category" value="cinematography"}
-							{for $i=0 to 10}
-								{assign var="full" value=10 - {$i}}
-								{assign var="half" value={$full} - 0.5}
-								<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
-								<label class="full" for="rating_{$category}_star{$i}"></label>
-								<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if} />
-								<label class="half" for="rating_{$category}_star{$i}half"></label>
-							{/for}
-						</fieldset>
-					</td>
-				</tr>
-				<tr>
-					<td class="bold right">Editing</td>
-					<td>
-						<fieldset class="rating">
-							{assign var="category" value="editing"}
-							{for $i=0 to 10}
-								{assign var="full" value=10 - {$i}}
-								{assign var="half" value={$full} - 0.5}
-								<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
-								<label class="full" for="rating_{$category}_star{$i}"></label>
-								<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if} />
-								<label class="half" for="rating_{$category}_star{$i}half"></label>
-							{/for}
-						</fieldset>
-					</td>
-				</tr>
-				<tr>
-					<td class="bold right">Look</td>
-					<td>
-						<fieldset class="rating">
-							{assign var="category" value="look"}
-							{for $i=0 to 10}
-								{assign var="full" value=10 - {$i}}
-								{assign var="half" value={$full} - 0.5}
-								<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
-								<label class="full" for="rating_{$category}_star{$i}"></label>
-								<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if} />
-								<label class="half" for="rating_{$category}_star{$i}half"></label>
-							{/for}
-						</fieldset>
-					</td>
-				</tr>
-				<tr>
-					<td class="bold right">Sound</td>
-					<td>
-						<fieldset class="rating">
-							{assign var="category" value="sound"}
-							{for $i=0 to 10}
-								{assign var="full" value=10 - {$i}}
-								{assign var="half" value={$full} - 0.5}
-								<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
-								<label class="full" for="rating_{$category}_star{$i}"></label>
-								<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if} />
-								<label class="half" for="rating_{$category}_star{$i}half"></label>
-							{/for}
-						</fieldset>
-					</td>
-				</tr>
-				<tr>
-					<td class="bold right">Score</td>
-					<td>
-						<fieldset class="rating">
-							{assign var="category" value="score"}
-							{for $i=0 to 10}
-								{assign var="full" value=10 - {$i}}
-								{assign var="half" value={$full} - 0.5}
-								<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
-								<label class="full" for="rating_{$category}_star{$i}"></label>
-								<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if} />
-								<label class="half" for="rating_{$category}_star{$i}half"></label>
-							{/for}
-						</fieldset>
-					</td>
-				</tr>
+				{assign var=categories value=['acting', 'cinematography', 'editing', 'look', 'sound', 'score']}
+				{foreach from=$categories item=category}
+					<tr>
+						<td class="bold right">{$category}</td>
+						<td>
+							<fieldset class="rating">
+								{for $i=0 to 10}
+									{assign var="full" value=10 - {$i}}
+									{assign var="half" value={$full} - 0.5}
+									<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
+									<label class="full" for="rating_{$category}_star{$i}" title="{$full}"></label>
+									<input type="radio" id="rating_{$category}_star{$i}half" name="rating_{$category}" value="{$half}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$half})" {if ($UserRating->{$category}) == $half}checked="checked"{/if}  />
+									<label class="half" for="rating_{$category}_star{$i}half" title="{$half}"></label>
+								{/for}
+							</fieldset>
+						</td>
+					</tr>
+				{/foreach}
 			</table>
 		</div>
 

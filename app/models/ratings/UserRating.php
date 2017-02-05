@@ -1,6 +1,7 @@
 <?php
 class UserRating {
   public $total;
+  public $ratings;
 
   public $plot;
   public $dialog;
@@ -18,6 +19,7 @@ class UserRating {
 
   function __construct() {
     $this->total = 0;
+    $this->ratings = 0;
     $this->plot = 11;
     $this->dialog = 11;
     $this->cinematography = 11;

@@ -70,6 +70,11 @@ class Movies extends Controller {
     $results = [];
     $results = $this->omdbService->search($search);
 
+    if(count($results) == 0) {
+      $this->assign('Search', $search);
+      return $this->render('movies/search-no-results.tpl');
+    }
+
     $this->assign('Results', $results);
     return $this->render('movies/search-results.tpl');
   }
@@ -96,14 +101,79 @@ class Movies extends Controller {
       return $this->render('movies/list.tpl');
     } else {
       $movie = $this->MovieRepository->get($id);
-      $UserRating = $this->RatingRepository->getUserRatingsOfMovie($_SESSION['userId'], $id);
+      $UserRating = $this->RatingRepository->getUserRating($_SESSION['userId'], $id);
+      $AverageRating = $this->RatingRepository->getAverageRating($id);
+
       $this->assign('Movie', $movie);
       $this->assign('UserRating', $UserRating);
+      $this->assign('AverageRating', $AverageRating);
       return $this->render('movies/details.tpl');
     }
   }
 
+  public function edit($id) {
+    $this->restrictedTo([ADMIN]);
+
+    if(!isset($_POST['submit'])) {
+      $movie = $this->MovieRepository->get($id);
+
+      $this->assign('Movie', $movie);
+      return $this->render('movies/edit.tpl');
+    }
+
+    $form = new Form();
+    $form->createField(FieldType::String, 'title');
+    $form->createField(FieldType::Integer, 'year');
+    $form->createField(FieldType::String, 'director');
+    $form->createField(FieldType::String, 'writer');
+    $form->createField(FieldType::String, 'cast');
+    $form->createField(FieldType::String, 'awards');
+    $form->createField(FieldType::String, 'runtime');
+    $form->createField(FieldType::String, 'country');
+    $form->createField(FieldType::String, 'genre');
+    $form->createField(FieldType::Optional, 'plot');
+    $form->setFieldMessage('title', 'Please provide an title.');
+    $form->setFieldMessage('year', 'Please provide a year.');
+    $form->setFieldMessage('director', 'Please provide an director.');
+    $form->setFieldMessage('writer', 'Please provide an writer.');
+    $form->setFieldMessage('cast', 'Please provide an cast.');
+    $form->setFieldMessage('awards', 'Please provide an awards.');
+    $form->setFieldMessage('runtime', 'Please provide an runtime.');
+    $form->setFieldMessage('country', 'Please provide an country.');
+    $form->setFieldMessage('genre', 'Please provide an genre.');
+
+    $form->parse($_POST);
+    $data = $form->toArray();
+
+    if(!$form->isValid()) {
+      $this->handleFormErrors($form);
+      $this->assign($data);
+      return $this->render('movies/edit.tpl');
+    }
+
+    $this->MovieRepository->update($id, $data);
+    return $this->get($id);
+  }
+
+  public function year($year) {
+    $this->restrictedTo([USER, ADMIN]);
+
+    $movies = $this->MovieRepository->getMoviesOfYear($year);
+    $this->assign('Movies', $movies);
+    return $this->render('movies/list.tpl');
+  }
+
+  public function director($director) {
+    $this->restrictedTo([USER, ADMIN]);
+
+    $movies = $this->MovieRepository->getMoviesOfDirector($director);
+    $this->assign('Movies', $movies);
+    return $this->render('movies/list.tpl');
+  }
+
   public function rated_by_user($userId) {
+    $this->restrictedTo([USER, ADMIN]);
+
     $movies = $this->RatingRepository->getMoviesRatedByUser($userId);
     $this->assign('Movies', $movies);
     return $this->render('movies/list.tpl');
@@ -111,10 +181,6 @@ class Movies extends Controller {
 
   public function post($data) {
     $this->MovieRepository->create($data);
-  }
-
-  public function update($id, $data) {
-    $this->MovieRepository->update($id, $data);
   }
 
   public function delete($id) {

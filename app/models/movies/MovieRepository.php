@@ -22,5 +22,28 @@ class MovieRepository extends Repository {
     return $this->Database->select(
       "SELECT * FROM $this->tableName WHERE title LIKE '%$search%'");
   }
+
+  public function getMoviesOfYear($year) {
+    return $this->Database->select(
+      "SELECT $this->tableName.id as movieId,
+              $this->tableName.title as title,
+              $this->tableName.year as year,
+              $this->tableName.director as director,
+              (SELECT SUM(total)/COUNT(total) FROM ratings WHERE ratings.movieId = $this->tableName.id) as total
+      FROM movies
+      WHERE movies.year = :year",
+        ['year' => $year]);
+  }
+
+  public function getMoviesOfDirector($director) {
+    return $this->Database->select(
+      "SELECT $this->tableName.id as movieId,
+              $this->tableName.title as title,
+              $this->tableName.year as year,
+              $this->tableName.director as director,
+              (SELECT SUM(total)/COUNT(total) FROM ratings WHERE ratings.movieId = $this->tableName.id) as total
+      FROM movies
+      WHERE movies.director LIKE '%$director%'");
+  }
 }
 ?>
