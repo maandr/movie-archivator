@@ -171,6 +171,38 @@ class Movies extends Controller {
     return $this->render('movies/list.tpl');
   }
 
+  public function writer($writer) {
+    $this->restrictedTo([USER, ADMIN]);
+
+    $movies = $this->MovieRepository->getMoviesOfWriter($writer);
+    $this->assign('Movies', $movies);
+    return $this->render('movies/list.tpl');
+  }
+
+  public function actor($actor) {
+    $this->restrictedTo([USER, ADMIN]);
+
+    $movies = $this->MovieRepository->getMoviesOfActor($actor);
+    $this->assign('Movies', $movies);
+    return $this->render('movies/list.tpl');
+  }
+
+  public function genre($genre) {
+    $this->restrictedTo([USER, ADMIN]);
+
+    $movies = $this->MovieRepository->getMoviesOfGenre($genre);
+    $this->assign('Movies', $movies);
+    return $this->render('movies/list.tpl');
+  }
+
+  public function country($country) {
+    $this->restrictedTo([USER, ADMIN]);
+
+    $movies = $this->MovieRepository->getMoviesOfCountry($country);
+    $this->assign('Movies', $movies);
+    return $this->render('movies/list.tpl');
+  }
+
   public function rated_by_user($userId) {
     $this->restrictedTo([USER, ADMIN]);
 
