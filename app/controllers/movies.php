@@ -104,11 +104,24 @@ class Movies extends Controller {
       $UserRating = $this->RatingRepository->getUserRating($_SESSION['userId'], $id);
       $AverageRating = $this->RatingRepository->getAverageRating($id);
 
+      #$movie->cast = $this->prepareLinks($movie->cast, 'actor');
+
       $this->assign('Movie', $movie);
       $this->assign('UserRating', $UserRating);
       $this->assign('AverageRating', $AverageRating);
       return $this->render('movies/details.tpl');
     }
+  }
+
+  private function prepareLinks($string, $targetMethod) {
+    $links = explode(', ', $string);
+
+    for($i=0; $i < sizeof($links); $i++) {
+      $link =  sprintf('<a href="%s/%s/%s">%s</a>', $this->controllerName, $targetMethod, $links[$i], $links[$i]);
+      $links[$i] = $link;
+    }
+
+    return implode(', ', $links);
   }
 
   public function edit($id) {

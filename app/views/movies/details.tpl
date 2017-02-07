@@ -27,11 +27,11 @@
 				</tr>
 				<tr>
 					<td class="bold right">Genre</td>
-					<td>{$Movie->genre}</td>
+					<td>{generate_links value=$Movie->genre href='movies/genre'}</td>
 				</tr>
 				<tr>
 					<td class="bold right">Country</td>
-					<td>{$Movie->country}</td>
+					<td>{generate_links value=$Movie->country href='movies/country'}</td>
 				</tr>
 				<tr>
 					<td class="bold right">Runtime</td>
@@ -47,11 +47,11 @@
 				</tr>
 				<tr>
 					<td class="bold right">Writer</td>
-					<td>{$Movie->writer}</td>
+					<td>{generate_links value=$Movie->writer href='movies/writer'}</td>
 				</tr>
 				<tr>
 					<td class="bold right">Cast</td>
-					<td>{$Movie->cast}</td>
+					<td>{generate_links value=$Movie->cast href='movies/actor'}</td>
 				</tr>
 			</table>
 
