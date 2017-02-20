@@ -6,7 +6,7 @@ CREATE TABLE `movies` (
   `year` int(4) NOT NULL,
   `director` varchar(120) NOT NULL,
   `writer` varchar(120) NOT NULL,
-  `cast` varchar(120) NOT NULL,
+  `cast` varchar(200) NOT NULL,
   `awards` varchar(120) NOT NULL,
   `runtime` varchar(20) NOT NULL,
   `country` varchar(60) NOT NULL,

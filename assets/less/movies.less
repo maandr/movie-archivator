@@ -30,6 +30,7 @@ table.movie-list {
   margin: 0;
   display: inline;
   position: relative;
+  line-height: 50px;
 
   form, input {
     padding: 0;
@@ -37,15 +38,17 @@ table.movie-list {
     padding: 5px;
   }
 
-  input {
-    width: 150px;
-    height: 30px;
+  #search {
+    width: 250px;
+    height: 35px;
+    padding: 5px;
     display: inline;
   }
 
   #submit-search {
     width: 75px;
-    height: 30px;
+    height: 35px;
+    padding: 5px;
     display: inline;
   }
 
@@ -54,15 +57,16 @@ table.movie-list {
     visibility: hidden;
     overflow: auto;
     max-height: 400px;
-    width: 450px;
+    min-width: 450px;
+    width: 600px;
     background-color: #fff;
     border: 1px solid @dark-gray;
     left: 0;
   }
 
   &-result {
-    min-height: 80px;
-    border-bottom: 1px solid @light-gray;
+    min-height: 70px;
+    border-bottom: 1px solid @gray;
     padding: 5px;
     display: block;
 

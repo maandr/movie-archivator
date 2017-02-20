@@ -168,6 +168,15 @@ class Movies extends Controller {
     return $this->get($id);
   }
 
+  public function update($id) {
+    $this->restrictedTo([ADMIN]);
+
+    $data = $_POST;
+    unset($data['submit']);
+    $this->MovieRepository->update($id, $data);
+    Location::redirectTo('movies/get/'.$id);
+  }
+
   public function year($year) {
     $this->restrictedTo([USER, ADMIN]);
 

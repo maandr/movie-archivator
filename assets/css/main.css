@@ -55,6 +55,7 @@ table.movie-list tr:nth-child(odd) {
   margin: 0;
   display: inline;
   position: relative;
+  line-height: 50px;
 }
 .movie-search form,
 .movie-search input {
@@ -62,14 +63,16 @@ table.movie-list tr:nth-child(odd) {
   margin: 0;
   padding: 5px;
 }
-.movie-search input {
-  width: 150px;
-  height: 30px;
+.movie-search #search {
+  width: 250px;
+  height: 35px;
+  padding: 5px;
   display: inline;
 }
 .movie-search #submit-search {
   width: 75px;
-  height: 30px;
+  height: 35px;
+  padding: 5px;
   display: inline;
 }
 .movie-search-results {
@@ -77,14 +80,15 @@ table.movie-list tr:nth-child(odd) {
   visibility: hidden;
   overflow: auto;
   max-height: 400px;
-  width: 450px;
+  min-width: 450px;
+  width: 600px;
   background-color: #fff;
   border: 1px solid #cecece;
   left: 0;
 }
 .movie-search-result {
-  min-height: 80px;
-  border-bottom: 1px solid #fafafa;
+  min-height: 70px;
+  border-bottom: 1px solid #efefef;
   padding: 5px;
   display: block;
 }

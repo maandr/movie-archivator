@@ -39,8 +39,9 @@ class MovieRepository extends Repository {
    * @return Array of all movies whos title contains the passed term.
    */
   public function search($search) {
+
     return $this->Database->select(
-      "SELECT * FROM $this->tableName WHERE title LIKE '%$search%'");
+      "SELECT * FROM $this->tableName WHERE title LIKE '%" . mysql_real_escape_string($search) . "%'");
   }
 
   /*

@@ -10,10 +10,9 @@
       <a class="navbar-brand" href="#">{$ProjectName}</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      {include file='movies/search.tpl'}
-      <ul class="nav navbar-nav">
-        <li><a href="home">Home</a></li>
-      </ul>
+      {if $Role != 'visitor'}
+        {include file='movies/search.tpl'}
+      {/if}
       <ul class="nav navbar-nav navbar-right">
         {if $Role == 'visitor'}
           <li>

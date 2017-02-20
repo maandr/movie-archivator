@@ -12,7 +12,7 @@
 			<img src="{$PosterPath}{$Movie->id}.jpg" class="poster" />
 		</div>
 		<div class="col-md-8">
-			<h1>{$Movie->title}</h1>
+			<h1>{$Movie->title}{if $Role == 'admin'} [<a href="{$ControllerName}/edit/{$Movie->id}">Edit</a>]{/if}</h1>
 
 			<div id="total-rating" class="total-rating a-rating">
 				<div class="total-rating-user">{$UserRating->total|string_format:"%.2f"}</div>
@@ -43,7 +43,7 @@
 				</tr>
 				<tr>
 					<td class="bold right">Director</td>
-					<td><a href="{$ControllerName}/director/{$Movie->director}">{$Movie->director}</a></td>
+					<td>{generate_links value=$Movie->director href='movies/director'}</td>
 				</tr>
 				<tr>
 					<td class="bold right">Writer</td>
@@ -71,7 +71,7 @@
 						<td class="bold right">{$category}</td>
 						<td>
 							<fieldset class="rating">
-								{for $i=0 to 10}
+								{for $i=0 to 9}
 									{assign var="full" value=10 - {$i}}
 									{assign var="half" value={$full} - 0.5}
 									<input type="radio" id="rating_{$category}_star{$i}" name="rating_{$category}" value="{$full}" onclick="rate({$User->id}, {$Movie->id}, '{$category}', {$full})" {if ($UserRating->{$category}) == $full}checked="checked"{/if} />
